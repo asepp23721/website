@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komunitas</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #0a0a0f;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        .info-text {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 1;
+            background: rgba(18, 18, 26, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            max-width: 400px;
+        }
+
+        .info-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .info-description {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: var(--size);
+            animation: float var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: var(--opacity);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 30px;
+            background: rgba(18, 18, 26, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .wa-button {
+            background: linear-gradient(45deg, #000fff, #f6275f);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 200px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .wa-button:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .wa-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .wa-button:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="info-text">
+        <div class="info-title">Join Komunitas ku</div>
+        <div class="info-description">
+            
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="wa-button" onclick="window.open('https://chat.whatsapp.com/EED2oe8LDBuGCsTqlQxfKU')">JASBUG 1</button>
+        <button class="wa-button" onclick="window.open('https://chat.whatsapp.com/group2')">JASBUG 2 (LIMIT)</button>
+        <button class="wa-button" onclick="window.open('https://whatsapp.com/channel/0029VazXGXV7DAWuGrcETA14')">SALURAN</button>
+        <button class="wa-button" onclick="window.open('https://whatsapp.com/channel/0029Vb3wRgi9sBI9zVjWd23H')">TESTI</button>
+        <button class="wa-button" onclick="window.open('https://chat.whatsapp.com/D5v10QJ6tsm8eNAfJ4NETy')">BEBAS CHAT</button>
+        <button class="wa-button" onclick="window.open('?')">Coming Soon</button>
+        <button class="wa-button" onclick="window.open('?')">Coming Soon</button>
+                <button class="wa-button" onclick="window.open('website.html')">Kembali</button>
+    </div>
+
+    <script>
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const numberOfHearts = 200;
+
+            for (let i = 0; i < numberOfHearts; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '🤍';
+                
+                // Random position
+                heart.style.left = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = 20 + Math.random() * 12;
+                heart.style.setProperty('--size', `${size}px`);
+                
+                // Random duration
+                const duration = 1 + Math.random() * 10;
+                heart.style.setProperty('--duration', `${duration}s`);
+                
+                // Random opacity
+                const opacity = 0.3 + Math.random() * 0.5;
+                heart.style.setProperty('--opacity', opacity);
+                
+                heartsContainer.appendChild(heart);
+                
+                // Remove heart after animation completes
+                heart.addEventListener('animationend', () => {
+                    heart.remove();
+                    createSingleHeart(); // Create a new heart to replace the removed one
+                });
+            }
+        }
+
+        function createSingleHeart() {
+            const heartsContainer = document.getElementById('hearts');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            
+            heart.style.left = `${Math.random() * 100}%`;
+            const size = 8 + Math.random() * 12;
+            heart.style.setProperty('--size', `${size}px`);
+            const duration = 15 + Math.random() * 10;
+            heart.style.setProperty('--duration', `${duration}s`);
+            const opacity = 0.90 + Math.random() * 0.5;
+            heart.style.setProperty('--opacity', opacity);
+            
+            heartsContainer.appendChild(heart);
+            
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+                createSingleHeart();
+            });
+        }
+
+        createHearts();
+    </script>
+</body>
+</html>

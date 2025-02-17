@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peringatan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        /* Semua style sebelumnya sama, hanya mengubah font untuk h1 */
+        /* ... */
+        h1 {
+            color: #ff0000;
+            margin-bottom: 1.5rem;
+            font-family: 'Roboto', sans-serif; /* Mengubah ke font normal */
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Sisanya sama seperti sebelumnya */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background-color: #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #ff000033 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: #1a1a1a;
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .warning-icon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .warning-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        p {
+            color: #ffffff;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        .progress-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            background-color: #2a2a2a;
+            border: 1px solid #ff0000;
+            border-radius: 20px;
+            height: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .progress {
+            background: linear-gradient(90deg, #ff0000, #ff4444);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .progress-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .redirect-info {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .glitch-effect {
+            animation: glitch 2s infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effect"></div>
+    <div class="container">
+        <div class="warning-icon glitch-effec">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L1 21H23L12 2Z" fill="#ff0000"/>
+                <path d="M12 8V13" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="16" r="1" fill="#ffffff"/>
+            </svg>
+        </div>
+        <h1 class="glitch-effec">PERINGATAN!</h1>
+        <p>KALO GA ORDER JANGAN ISENG KLIK!</p>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="progress-percentage" id="progress-percentage">0%</div>
+        </div>
+        <div class="redirect-info">
+            Menuju ke halaman Selanjutnya...
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById('progress');
+            const progressPercentage = document.getElementById('progress-percentage');
+            let width = 0;
+
+            // Add scary flicker effect to background
+            setInterval(() => {
+                if (Math.random() < 0.1) {
+                    document.body.style.backgroundColor = '#1a0000';
+                    setTimeout(() => {
+                        document.body.style.backgroundColor = '#0a0a0a';
+                    }, 100);
+                }
+            }, 2000);
+
+            // Progress bar animation
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    progressPercentage.textContent = '100%';
+                    // Redirect to next page when loading is complete
+                    setTimeout(() => {
+                        window.location.href = 'website.html';
+                    }, 500);
+                } else {
+                    width += Math.random() * 2; // Random progress for more dramatic effect
+                    if (width > 100) width = 100;
+                    progressBar.style.width = width + '%';
+                    progressPercentage.textContent = Math.round(width) + '%';
+                }
+            }, 30);
+        });
+    </script>
+</body>
+</html>
